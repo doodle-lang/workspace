@@ -16,7 +16,7 @@ repos — work in them directly as usual.
 - `discussions/plan/implementation.md` — Implementation plan: architecture decisions (AD1–AD8), milestones (M0–M10), spec-reconciliation backlog (Appendix C, S-1…S-45), open decisions (§10)
 - `discussions/claude-todo.md` — **The living work queue/status — read this first each session**
 - `discussions/plan/plan-m0.md`, `plan-m1.md` — Working plans: session-sized work items for the current milestones
-- `discussions/plan/machine-design.md` — Machine internals design (value repr, Cont/frames, heap, GC); **gate for M2a** — no machine-core code before it is reviewed/accepted
+- `discussions/plan/machine-design.md` — Machine internals design (value repr, Cont/frames, heap, GC); accepted (M2a gate satisfied) — changing its *mechanisms* requires revising it first
 - `discussions/Claude-Doodle language discussion.md` — The original design conversation (rationale for most spec decisions)
 
 A standard-library spec (`discussions/spec/standard-library.md`) is planned
