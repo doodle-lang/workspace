@@ -1,0 +1,6 @@
+[submodule "discussions"]
+	path = discussions
+	url = https://github.com/doodle-lang/discussions.git
+[submodule "doodle-rust"]
+	path = doodle-rust
+	url = https://github.com/doodle-lang/doodle-rust.git
