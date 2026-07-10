@@ -23,3 +23,7 @@ Or if already cloned:
 ```sh
 git submodule update --init --recursive
 ```
+
+## License
+
+[MIT](LICENSE)

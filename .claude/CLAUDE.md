@@ -46,8 +46,8 @@ not outgrow. Key design points:
 Specs L and E are drafted (v0.1); the implementation plan is written and
 adversarially reviewed. Implementation is at milestone **M0 (scaffolding)**:
 the `doodle-rust` workspace, hygiene checks, and CI exist; no engine code
-yet. Open decisions live in the plan's §10 (license D-3 is still
-undecided — crates carry no license field yet).
+yet. Open decisions live in the plan's §10; D-1 (repos) and D-3 (license:
+MIT) are resolved.
 
 ## Working With This Codebase
 
