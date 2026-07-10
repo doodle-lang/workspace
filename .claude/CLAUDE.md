@@ -258,6 +258,15 @@ you can look again without re-running. Example:
 
 ### Git
 
+- **Landing flow (per submodule): work branch → cherry-pick → push main →
+  resync.** In each submodule, do all work on a single, fixed branch named
+  `work`, kept synced to `main` (i.e. `work` = local `main` plus your
+  in-progress commits on top). To land: cherry-pick the finished commit(s)
+  from `work` onto local `main`, `git push origin main`, then resync
+  (`git switch work && git reset --hard main`), and continue. Pushing `main`
+  this way is the authorized outward-facing step of this flow — you do not
+  need to re-ask each time. Do not open PRs or feature branches per task; the
+  one `work` branch is reused across all work.
 - The repos are sibling submodule checkouts — use `git -C <path>` rather
   than `cd <path> && git ...` (e.g. `git -C discussions push`).
 - **Never use `git stash`** — it constantly leads to lost work. Create a
