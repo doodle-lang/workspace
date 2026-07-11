@@ -256,6 +256,18 @@ you can look again without re-running. Example:
 `cargo test 2>&1 | tee /tmp/test.out | tail -5` then
 `grep FAIL /tmp/test.out`.
 
+### Review/Subagents Must Not Mutate the Working Tree
+
+Adversarial-review and other analysis subagents/workflows are for reading and
+reasoning, not editing. Prompt them to run **read-only**: no `Edit`/`Write`, no
+`git checkout`/`restore`/`stash`/`reset`, no writing throwaway files into the
+tracked tree. A review agent once ran `git checkout` on a test file mid-run and
+silently reverted uncommitted work. If a review agent legitimately needs to
+build or run tests, have it do so without touching tracked files (a scratch dir
+or a throwaway path outside the crate), or run it under worktree isolation. When
+you drive a review, verify your uncommitted changes are still present afterward
+(`git status` / a quick build) before continuing.
+
 ### Git
 
 - **Landing flow (per submodule): work branch → cherry-pick → push main →
