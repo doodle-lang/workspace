@@ -281,6 +281,17 @@ you drive a review, verify your uncommitted changes are still present afterward
   one `work` branch is reused across all work.
 - The repos are sibling submodule checkouts — use `git -C <path>` rather
   than `cd <path> && git ...` (e.g. `git -C discussions push`).
+- **Never chain a destructive `git reset --hard` after a landing step in one
+  command line, and never pipe a landing command through `tail`/`grep`.** A
+  `cherry-pick … 2>&1 | tail -2; …; git reset --hard main` once returned an
+  empty/failed cherry-pick whose non-zero exit was masked by the pipe, so the
+  later `reset --hard` still ran and discarded the just-made `work` commit
+  (recovered from reflog). Land in separate, observed steps: cherry-pick (see
+  its full output) → confirm `main` advanced → push → only then resync. Join
+  landing steps with `&&`, never `;`, so a failed step aborts before the reset.
+- **When the `work` commit sits directly on `main` (linear), prefer
+  `git merge --ff-only <commit>` over cherry-pick** — a fast-forward can't go
+  "empty" and moves the pointer deterministically.
 - **Never use `git stash`** — it constantly leads to lost work. Create a
   temporary branch and commit there instead.
 - **Don't routinely bump workspace submodule pointers.** Each submodule is
