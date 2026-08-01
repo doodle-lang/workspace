@@ -15,7 +15,7 @@ repos — work in them directly as usual.
 - `discussions/spec/engine.md` — The engine embedding & instrumentation API specification (**E**)
 - `discussions/plan/implementation.md` — Implementation plan: architecture decisions (AD1–AD8), milestones (M0–M10), spec-reconciliation backlog (Appendix C, S-1…S-45), open decisions (§10)
 - `discussions/claude-todo.md` — **The living work queue/status — read this first each session**
-- `discussions/plan/plan-m0.md`, `plan-m1.md` — Working plans: session-sized work items for the current milestones
+- `discussions/plan/plan-m0.md`, `plan-m1.md`, `plan-m2a.md` — Working plans: session-sized work items per milestone (M0/M1/M2a complete; the next milestone's plan is written when it begins)
 - `discussions/plan/machine-design.md` — Machine internals design (value repr, Cont/frames, heap, GC); accepted (M2a gate satisfied) — changing its *mechanisms* requires revising it first
 - `discussions/Claude-Doodle language discussion.md` — The original design conversation (rationale for most spec decisions)
 
@@ -47,10 +47,19 @@ not outgrow. Key design points:
 ## Project Status
 
 Specs L and E are drafted (v0.1); the implementation plan is written and
-adversarially reviewed. Implementation is at milestone **M0 (scaffolding)**:
-the `doodle-rust` workspace, hygiene checks, and CI exist; no engine code
-yet. Open decisions live in the plan's §10; D-1 (repos) and D-3 (license:
-MIT) are resolved.
+adversarially reviewed. **Milestones M0, M1 (front end: lexer, parser,
+resolver, diagnostics), and M2a (Machine Core) are complete.** The
+`doodle-core` engine runs the demo subset deterministically: the CESK machine,
+slab heap with a precise non-moving mark-sweep GC, proper tail calls, closures
+(cell-boxed loop-fresh capture), three-tier block exits + the unwind mechanism,
+resource limits at statement safe points, host handles, and the instance config
+surface. The conformance runner drives `mode: run` fixtures (matching
+`expect-raise`) and the stage gate reports `Run`; a GC-stress determinism gate
+is green. **Next is M2b** — the host/embedding layer (foreign-function
+registration, `print`/capabilities, the drive-state machine for resume/suspend,
+reentrant drives). The living status is `discussions/claude-todo.md` (read it
+first each session). Open decisions live in the plan's §10; D-1 (repos) and
+D-3 (license: MIT) are resolved.
 
 ## Working With This Codebase
 
