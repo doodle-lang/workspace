@@ -288,8 +288,14 @@ you drive a review, verify your uncommitted changes are still present afterward
   this way is the authorized outward-facing step of this flow — you do not
   need to re-ask each time. Do not open PRs or feature branches per task; the
   one `work` branch is reused across all work.
-- The repos are sibling submodule checkouts — use `git -C <path>` rather
-  than `cd <path> && git ...` (e.g. `git -C discussions push`).
+- The repos are sibling submodule checkouts — **always** use `git -C <path>`
+  and **never** rely on the shell's current directory for git (e.g.
+  `git -C discussions push`). The Bash cwd persists across calls, so a bare
+  `git reset`/`git commit` can silently hit the wrong submodule: a bare
+  `git reset --mixed HEAD~1` intended for `discussions` once ran against
+  `doodle-rust` (cwd was left there by earlier commands) and uncommitted a
+  just-landed chunk — recoverable only because it was already pushed. Put the
+  `-C <repo>` on **every** git command, including reads like `git status`.
 - **Never chain a destructive `git reset --hard` after a landing step in one
   command line, and never pipe a landing command through `tail`/`grep`.** A
   `cherry-pick … 2>&1 | tail -2; …; git reset --hard main` once returned an
