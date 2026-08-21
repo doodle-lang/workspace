@@ -4,3 +4,6 @@
 [submodule "doodle-rust"]
 	path = doodle-rust
 	url = https://github.com/doodle-lang/doodle-rust.git
+[submodule "doodle-web"]
+	path = doodle-web
+	url = https://github.com/doodle-lang/doodle-web.git
