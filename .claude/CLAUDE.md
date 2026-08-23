@@ -46,20 +46,18 @@ not outgrow. Key design points:
 
 ## Project Status
 
-Specs L and E are drafted (v0.1); the implementation plan is written and
-adversarially reviewed. **Milestones M0, M1 (front end: lexer, parser,
-resolver, diagnostics), and M2a (Machine Core) are complete.** The
-`doodle-core` engine runs the demo subset deterministically: the CESK machine,
-slab heap with a precise non-moving mark-sweep GC, proper tail calls, closures
-(cell-boxed loop-fresh capture), three-tier block exits + the unwind mechanism,
-resource limits at statement safe points, host handles, and the instance config
-surface. The conformance runner drives `mode: run` fixtures (matching
-`expect-raise`) and the stage gate reports `Run`; a GC-stress determinism gate
-is green. **Next is M2b** — the host/embedding layer (foreign-function
-registration, `print`/capabilities, the drive-state machine for resume/suspend,
-reentrant drives). The living status is `discussions/claude-todo.md` (read it
-first each session). Open decisions live in the plan's §10; D-1 (repos) and
-D-3 (license: MIT) are resolved.
+Specs **L** and **E** are drafted (v0.1); the implementation plan is written and
+adversarially reviewed; the license is MIT.
+
+**The current milestone state is NOT tracked here — it goes stale.** Read the
+living status instead, first thing each session:
+
+- `discussions/claude-todo.md` — the work queue and status snapshot: what's
+  done / in progress, and the CRITICAL/MAJOR bug list at the top.
+- `discussions/plan/implementation.md` — architecture decisions (AD1–AD8),
+  milestones (M0–M10), and open decisions (§10).
+- `discussions/plan/plan-m*.md` — the per-milestone working plans (written when
+  each milestone begins).
 
 ## Working With This Codebase
 
