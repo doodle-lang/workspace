@@ -230,6 +230,16 @@ things worse: do not make a file that's over the soft length limit even
 longer — split it properly. Warnings give you time to act; they are not
 meant to be ignored.
 
+**The file-length soft limit MUST NOT be ignored, and MUST be addressed as
+soon as possible — do NOT ask whether to split.** If a change pushes a file
+over (or further over) the soft limit, split it *in the same chunk*, before
+landing, along a natural boundary — extract a cohesive group of functions
+into a sibling submodule (e.g. `eval.rs` out of `step.rs`), or move an inline
+`#[cfg(test)] mod tests` into a `tests.rs` submodule (the length check
+exempts `tests.rs`/`*_test.rs`, so this is sanctioned, not gaming). Asking
+"should I split?" is itself ignoring the warning. Splitting is the one
+file-structure decision you do NOT defer to the user.
+
 ### Comments Stand Alone
 
 Comments should make sense in the current snapshotted tree. They should not
