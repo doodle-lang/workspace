@@ -211,6 +211,19 @@ A hygiene run is green ONLY if you have SEEN the
 If your grep returns fewer lines than you expect, look at the full output;
 do not assume success. "I ran hygiene" is not "hygiene passed."
 
+**Regenerate `doodle.h` BEFORE running any C-host gate after changing the C
+ABI.** The C-host gates (`capi-smoke.sh`, `capi-conformance.sh`,
+`gc-stress-conformance.sh`) compile the example C host against the *committed*
+`crates/doodle-capi/include/doodle.h` but link the *freshly built* static lib.
+If you changed a `#[repr(C)]` struct (e.g. added a `reserved` field, which
+shifts every following field — and every struct that embeds it by value) and
+have NOT yet run `scripts/capi-header.sh --write`, the C host reads fields at
+stale offsets and **SIGSEGVs** — which looks exactly like a determinism or
+memory-safety bug but is only a header/lib skew. So: regen the header first,
+then run the C-host gates. (Also: never judge a C-host gate's result from a
+command piped through `tail`/`head` — the pipe returns the pager's exit code,
+masking the script's real non-zero exit; run it into a file and read the file.)
+
 ### Don't Game Hygiene Checks
 
 The hygiene rules exist **to improve code quality**, not as obstacles.
