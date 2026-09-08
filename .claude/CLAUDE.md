@@ -240,6 +240,15 @@ exempts `tests.rs`/`*_test.rs`, so this is sanctioned, not gaming). Asking
 "should I split?" is itself ignoring the warning. Splitting is the one
 file-structure decision you do NOT defer to the user.
 
+**When naming a new file/module, avoid the Windows-reserved device names**
+(`aux`, `con`, `prn`, `nul`, `com1`–`com9`, `lpt1`–`lpt9`), case-insensitive
+and even with an extension: a file `aux.rs` cannot be checked out on Windows,
+so `git checkout` fails at that path and `test (windows-latest)` goes red
+*before any test runs* (local macOS/Linux never sees it). A split extracting
+"auxiliary evaluation" once landed as `inspect/aux.rs` and broke Windows CI —
+it had to be renamed `aux_eval.rs`. macOS/Linux CI staying green is not proof a
+new filename is portable.
+
 ### Comments Stand Alone
 
 Comments should make sense in the current snapshotted tree. They should not
