@@ -352,6 +352,20 @@ Don't make assumptions or value judgements about what's "worth doing" or
 refactor a helper, change an approach), ask the user instead of deciding
 unilaterally.
 
+**Verify a decision's status before telling the user it is open.**
+`implementation.md` §10 is not kept current: rulings recorded later in the
+per-milestone plans (`plan-m*.md`) and `claude-todo.md` were never back-ported
+(e.g. D-8's demo-hosting part was RESOLVED in `plan-m3.md` Decision #3 while §10
+still reads fully open). Grep every `plan-m*.md` and `claude-todo.md` for the
+decision ID before describing its status.
+
+**Verify a tool mechanism before offering it as an option.** When presenting
+options that rest on how a tool behaves (cargo, npm, gh, CI), check the behavior
+first — a throwaway crate/package in the scratchpad takes seconds. An
+unverified "`publish = [\"registry\"]` makes the dry-run pass" once went to the
+user as a recommendation; a probe showed cargo targets the allowlisted registry
+and fails, and that path deps without a `version` fail regardless.
+
 ### Learning From Mistakes
 
 Whenever you make a mistake (rejected edit, wrong assumption, incorrect
